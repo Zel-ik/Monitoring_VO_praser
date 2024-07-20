@@ -134,7 +134,10 @@ public class ExcelConverter {
             } else cell.setCellValue(tds.text());
 
 
-            if (tds.hasAttr("colspan")) sheet.addMergedRegion(new CellRangeAddress(rowNumber - 1, rowNumber - 1, 1, 4));
+            if (tds.hasAttr("colspan")) {
+                sheet.addMergedRegion(new CellRangeAddress(rowNumber - 1, rowNumber - 1, cellnum - 1, cellnum - 1 + Integer.parseInt(tds.getElementsByAttribute("colspan").attr("colspan"))));
+                setBordersToMergedCells(sheet);
+            }
 
             CellUtil.setCellStyleProperties(cell, getStyleMap());
         }
